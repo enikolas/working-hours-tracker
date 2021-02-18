@@ -1,0 +1,36 @@
+.gauge-bar {
+  background: #fff;
+  margin-bottom: 2px;
+  border: 1px solid #5a717f;
+}
+
+.gauge-bar .wrapper {
+  height: 10px;
+  background: #c5ccd1;
+  width: 155px;
+}
+
+.gauge-bar .marks {
+  border: 2px solid #254356;
+  border-top: none;
+  border-bottom: none;
+  height: 10px;
+  margin-right: 50px;
+  position: absolute;
+  width: 155px;
+}
+
+.gauge-bar .bar {
+  height: 10px;
+  background: #909fa8;
+  border-radius: 2px;
+  transition: ease-in width 0.3s;
+}
+
+.gauge-bar .bar.debt {
+  background: #d0808b;
+}
+
+.gauge-bar .bar.surplus {
+  background: #86ae80;
+}

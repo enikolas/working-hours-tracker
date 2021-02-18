@@ -24,7 +24,7 @@ const {
 	removeSession
 } = require('./utils');
 
-const jwtSecret = process.env.JWT_SECRET;
+const jwtSecret = process.env.JWT_SECRET || 'jwtSecret123';
 
 const authenticationSucceed = 'Your browser doesnt support frames, but this is required';
 
@@ -94,7 +94,7 @@ const logout = async (token) => {
 	}
 	const cookieJar = cookieJarFactory(token);
 	const options = getOptions('GET', `${ACHIEVO_URL}/index.php`, cookieJar);
-	options.qs = {
+	options.params = {
 		atklogout: 1
 	};
 
@@ -107,7 +107,7 @@ const phases = () => async (token) => {
 	const cookieJar = cookieJarFactory(token);
 	const { personId } = await getUserDetails(cookieJar);
 	const options = getOptions('GET', `${ACHIEVO_URL}/dlabs/timereg/timereg_lib.php`, cookieJar);
-	options.qs = {
+	options.params = {
 		person: personId,
 		init_userid: personId,
 		function: 'proj_phase'
@@ -122,7 +122,7 @@ const activities = phase => async (token) => {
 	const cookieJar = cookieJarFactory(token);
 	const { personId } = await getUserDetails(cookieJar);
 	const options = getOptions('GET', `${ACHIEVO_URL}/dlabs/timereg/timereg_lib.php`, cookieJar);
-	options.qs = {
+	options.params = {
 		person: personId,
 		init_userid: personId,
 		phase,
@@ -147,7 +147,7 @@ const reportHistory = async (token) => {
 	const cookieJar = cookieJarFactory(token);
 	const { personId } = await getUserDetails(cookieJar);
 	const options = getOptions('GET', `${ACHIEVO_URL}/dlabs/timereg/report.php`, cookieJar);
-	options.qs = {
+	options.params = {
 		init_userid: personId
 	};
 
@@ -177,7 +177,7 @@ const userDetails = () => async (token) => {
 const dayDetails = date => async (token) => {
 	const cookieJar = cookieJarFactory(token);
 	const options = getOptions('GET', `${ACHIEVO_URL}/dlabs/timereg/newhours_list.php`, cookieJar);
-	options.qs = { datei: date };
+	options.params = { datei: date };
 
 	const { data: responseHtml } = await axios(options);
 	const $ = cheerio.load(responseHtml);
@@ -196,7 +196,7 @@ const dayDetails = date => async (token) => {
 const dailyEntries = date => async (token) => {
 	const cookieJar = cookieJarFactory(token);
 	const options = getOptions('GET', `${ACHIEVO_URL}/dlabs/timereg/newhours_list.php`, cookieJar);
-	options.qs = { datei: date };
+	options.params = { datei: date };
 
 	const { data: responseHtml } = await axios(options);
 	const $ = cheerio.load(responseHtml);
@@ -455,9 +455,9 @@ const delTimeEntry = async (token, id) => {
 	const cookieJar = cookieJarFactory(token);
 
 	let options = getOptions('GET', `${ACHIEVO_URL}/dlabs/timereg/newhours_delete.php`, cookieJar);
-	const deleteFormHtml = await axios({
+	const { data: deleteFormHtml } = await axios({
 		...options,
-		qs: { id }
+		param: { id }
 	});
 	let error = extractError(deleteFormHtml);
 	if (error) {

@@ -1,0 +1,25 @@
+.button[disabled] {
+  opacity: 0.5;
+}
+
+.button {
+  font-size: 24px;
+  display: block;
+  font-weight: bold;
+  margin: 10px 0 0 70px;
+  width: 230px;
+  height: 64px;
+  background-color: #254356;
+  color: #fff;
+  cursor: pointer;
+}
+
+.button:focus {
+  outline: none;
+  border: #f93 solid 2px;
+  text-shadow: 0 0 10px rgba(255,255,255,0.6);
+}
+
+.button:hover {
+  background-color: #5a717f;
+}

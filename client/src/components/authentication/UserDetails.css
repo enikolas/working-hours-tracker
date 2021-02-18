@@ -1,0 +1,54 @@
+.user-details {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  background: #5a717f;
+  text-align: center;
+  overflow: hidden;
+  height: 29px;
+  transition: all ease-in 0.5s;
+}
+
+.user-details:hover {
+  height: 102px;
+}
+
+.user-details .employee-name {
+  padding: 10px;
+  font-weight: bold;
+  color: #c5ccd1;
+  font-size: 12px;
+  min-width: 130px;
+}
+
+.user-details button {
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.user-details button:hover {
+  opacity: 1;
+}
+
+.user-details button.logout {
+  background-color: #909fa8;
+  text-transform: lowercase;
+  padding: 2px 6px;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.user-details button.logout:hover {
+  background-color: #c5ccd1;
+}
+
+.user-details button.logout:focus {
+  outline: 1px solid #f93;
+}
+
+.user-details nav li {
+  list-style: none;
+}

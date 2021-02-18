@@ -13,8 +13,8 @@ const idRegex = RegExp(/&id=([0-9]+)&/, 'i');
 const timeBreakRegex = RegExp(/([0-9]{1,2}:[0-9]{2}) to ([0-9]{1,2}:[0-9]{2})/, 'i');
 const normaliseStringRegex = RegExp(/<[a-z ]+\/>|\\|\s\r?\n/, 'gi');
 
-const ACHIEVO_URL = process.env.SERVICE_URL;
-const jwtSecret = process.env.JWT_SECRET;
+const ACHIEVO_URL = process.env.SERVICE_URL || 'http://localhost:9001';
+const jwtSecret = process.env.JWT_SECRET || 'jwtSecret123';
 
 const loggedInUsers = new Map();
 

@@ -1,0 +1,13 @@
+.balance-box {
+  text-align: center;
+  margin: 20px 0;
+  padding: 10px 15px;
+  font-size: 14px;
+  background: #c5ccd1;
+  color: #5a717f;
+}
+
+.balance-box strong {
+  color: #254356;
+  margin-left: 4px;
+}

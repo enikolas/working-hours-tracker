@@ -1,0 +1,43 @@
+.check-box label {
+  font-size: 10px;
+  line-height: 11px;
+  display: block;
+}
+
+.check-box:before {
+  content: ' ';
+  display: block;
+  font-size: 16px;
+  line-height: 18px;
+  text-align: center;
+  background: #fff;
+  border-radius: 5px;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #c5ccd1;
+  float: left;
+  margin-right: 8px;
+  color: #254356;
+}
+
+.check-box.checked:before {
+  content: '✓';
+}
+
+.check-box:focus {
+  outline: none;
+}
+
+.check-box.not(.disabled):focus:before {
+  border: 2px solid #f93;
+}
+
+.check-box.disabled {
+  opacity: 0.5;
+}
+
+.no-pause {
+  width: 100px;
+  position: absolute;
+  margin-left: 320px;
+}

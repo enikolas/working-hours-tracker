@@ -1,0 +1,28 @@
+header {
+  background: #254356;
+  width: 62px;
+  align-self: stretch;
+  border-top: 20px solid #1a2f3c;
+}
+
+header:after {
+  content: ' ';
+  display: block;
+  position: absolute;
+  width: 15px;
+  height: 100%;
+  top: 0;
+  left: 62px;
+  border-top: 20px solid #254356;
+  background: #5a717f;
+}
+
+header h1 {
+  text-align: left;
+  color: #5a717f;
+  font-size: 70px;
+  letter-spacing: -0.05em;
+  margin-left: 50px;
+  height: 62px;
+  transform: rotate(-90deg) translate(-270px, -24px);
+}

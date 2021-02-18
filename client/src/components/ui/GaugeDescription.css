@@ -1,0 +1,10 @@
+.GaugeDescription {
+  font-size: 13px;
+  color: #5a717f;
+  display: block;
+}
+
+.GaugeDescription strong {
+  color: #254356;
+  margin-left: 4px;
+}

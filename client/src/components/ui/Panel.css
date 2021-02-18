@@ -1,0 +1,49 @@
+.panel {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  width: 100%;
+  margin-bottom: 25px;
+  border-radius: 6px;
+  min-height: 25px;
+}
+
+.panel .icon {
+  display: table-cell;
+  float: left;
+  align-self: center;
+  vertical-align: middle;
+  text-align: center;
+  background-color: #fff;
+  margin: 0 8px 0 14px;
+  width: 30px;
+  height: 27px;
+  border-radius: 50%;
+}
+
+.panel .message {
+  padding: 12px;
+  font-size: 14px;
+  width: calc(100% - 25px);
+  color: #fff;
+}
+
+.panel.success {
+  background-color: #479030;
+}
+
+.panel.success .icon:before {
+  content: '✓';
+  font-size: 22px;
+  color: #479030;
+}
+
+.panel.error {
+  background-color: #dc3545;
+}
+
+.panel.error .icon:before {
+  content: '⚠';
+  font-size: 22px;
+  color: #dc3545;
+}

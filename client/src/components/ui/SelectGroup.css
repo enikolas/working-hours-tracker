@@ -1,0 +1,33 @@
+.SelectGroup {
+  min-height: 40px;
+}
+
+.SelectGroup .label {
+  width: 60px;
+  margin-right: 10px;
+  font-size: 11px;
+  float: left;
+  text-align: right;
+  clear: both;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.SelectGroup select {
+  border: 2px solid #909fa8;
+  width: 230px;
+  font-size: 13px;
+  padding: 4px;
+  background-color: #fff;
+  margin-bottom: 20px;
+}
+
+.SelectGroup div {
+  font-size: 14px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
