@@ -11,10 +11,10 @@ moment.tz.setDefault('America/Sao_Paulo');
 export const STORAGEKEY = 'storedTimes';
 export const STORAGEDAYKEY = 'storedMoment';
 export const storedTimesIndex = {
-	startTime: 0,
-	startBreakTime: 1,
-	endBreakTime: 2,
-	endTime: 3
+  startTime: 0,
+  startBreakTime: 1,
+  endBreakTime: 2,
+  endTime: 3
 };
 export const SPECIAL_ACTIVITY_HOLIDAY = { id: 99999, name: 'Holiday' };
 
@@ -24,9 +24,9 @@ export const SPECIAL_ACTIVITY_HOLIDAY = { id: 99999, name: 'Holiday' };
  * @param {Date} date2
  */
 export const areTheSameDay = (date1, date2) => (
-	date1.day() === date2.day() &&
-	date1.month() === date2.month() &&
-	date1.year() === date2.year()
+  date1.day() === date2.day() &&
+  date1.month() === date2.month() &&
+  date1.year() === date2.year()
 );
 
 /**
@@ -36,13 +36,13 @@ export const areTheSameDay = (date1, date2) => (
  * @param {*} newValue new value ot array[index]
  */
 export const replacingValueInsideArray = (array, index, newValue) => [
-	...array.slice(0, index),
-	newValue,
-	...array.slice(index + 1)
+  ...array.slice(0, index),
+  newValue,
+  ...array.slice(index + 1)
 ];
 
 const _setStorage = (key, data) => {
-	global.localStorage.setItem(key, JSON.stringify(data));
+  global.localStorage.setItem(key, JSON.stringify(data));
 };
 
 /**
@@ -52,13 +52,13 @@ const _setStorage = (key, data) => {
  * @param {*} data to be save as {key, data}
  */
 export const setTodayStorage = (data, key = STORAGEKEY, dayKey = STORAGEDAYKEY) => {
-	const today = moment();
-	_setStorage(dayKey, today.valueOf());
-	_setStorage(key, data);
+  const today = moment();
+  _setStorage(dayKey, today.valueOf());
+  _setStorage(key, data);
 };
 
 const _getStorage = key => (
-	JSON.parse(global.localStorage.getItem(key))
+  JSON.parse(global.localStorage.getItem(key))
 );
 
 /**
@@ -68,15 +68,15 @@ const _getStorage = key => (
  * @param {*} dayKey is the key to be used to get {dayKey, dayOnLocalStorage}
  */
 export const getTodayStorage = (key = STORAGEKEY, dayKey = STORAGEDAYKEY) => {
-	const dayOnLocal = moment(_getStorage(dayKey));
-	const today = moment();
-	if (global.localStorage.getItem(dayKey)) {
-		if (areTheSameDay(dayOnLocal, today)) {
-			return _getStorage(key);
-		}
-	}
-	setTodayStorage({ storedTimes: [{}, {}, {}, {}], sentToday: false }, key, dayKey);
-	return { storedTimes: [{}, {}, {}, {}], sentToday: false };
+  const dayOnLocal = moment(_getStorage(dayKey));
+  const today = moment();
+  if (global.localStorage.getItem(dayKey)) {
+    if (areTheSameDay(dayOnLocal, today)) {
+      return _getStorage(key);
+    }
+  }
+  setTodayStorage({ storedTimes: [{}, {}, {}, {}], sentToday: false }, key, dayKey);
+  return { storedTimes: [{}, {}, {}, {}], sentToday: false };
 };
 
 /**
@@ -85,8 +85,8 @@ export const getTodayStorage = (key = STORAGEKEY, dayKey = STORAGEDAYKEY) => {
  * @param {*} dayKey
  */
 export const clearTodayStorage = (key = STORAGEKEY, dayKey = STORAGEDAYKEY) => {
-	localStorage.removeItem(key);
-	localStorage.removeItem(dayKey);
+  localStorage.removeItem(key);
+  localStorage.removeItem(dayKey);
 };
 
 /**
@@ -95,22 +95,22 @@ export const clearTodayStorage = (key = STORAGEKEY, dayKey = STORAGEDAYKEY) => {
  * @param {Function} addTimeEntry
  */
 const _addTimeEntry = async (timeEntryInput, addTimeEntry) => {
-	let response;
-	try {
-		response = await addTimeEntry({
-			variables: {
-				timeEntry: timeEntryInput
-			}
-		});
-	} catch (error) {
-		return { errorMessage: error.graphQLErrors[0].message };
-	}
+  let response;
+  try {
+    response = await addTimeEntry({
+      variables: {
+        timeEntry: timeEntryInput
+      }
+    });
+  } catch (error) {
+    return { errorMessage: error.graphQLErrors[0].message };
+  }
 
-	if (response) {
-		return { successMessage: strings.submitTimeSuccess };
-	}
+  if (response) {
+    return { successMessage: strings.submitTimeSuccess };
+  }
 
-	return { successMessage: '' };
+  return { successMessage: '' };
 };
 
 /**
@@ -120,23 +120,23 @@ const _addTimeEntry = async (timeEntryInput, addTimeEntry) => {
  * @param {Function} addTimeEntry
  */
 export const submitToServer = async (date, stateStoredTimes, phase, activity, addTimeEntry) => {
-	const startTime = stateStoredTimes[storedTimesIndex.startTime];
-	const startBreakTime = stateStoredTimes[storedTimesIndex.startBreakTime];
-	const endBreakTime = stateStoredTimes[storedTimesIndex.endBreakTime];
-	const endTime = stateStoredTimes[storedTimesIndex.endTime];
+  const startTime = stateStoredTimes[storedTimesIndex.startTime];
+  const startBreakTime = stateStoredTimes[storedTimesIndex.startBreakTime];
+  const endBreakTime = stateStoredTimes[storedTimesIndex.endBreakTime];
+  const endTime = stateStoredTimes[storedTimesIndex.endTime];
 
-	const timeEntryInput = {
-		date: date.format('YYYY-MM-DD'),
-		phaseId: phase.id,
-		activityId: activity.id,
-		startTime: `${startTime.hours}:${startTime.minutes}`,
-		startBreakTime: `${startBreakTime.hours}:${startBreakTime.minutes}`,
-		endBreakTime: `${endBreakTime.hours}:${endBreakTime.minutes}`,
-		endTime: `${endTime.hours}:${endTime.minutes}`
-	};
+  const timeEntryInput = {
+    date: date.format('YYYY-MM-DD'),
+    phaseId: phase.id,
+    activityId: activity.id,
+    startTime: `${startTime.hours}:${startTime.minutes}`,
+    startBreakTime: `${startBreakTime.hours}:${startBreakTime.minutes}`,
+    endBreakTime: `${endBreakTime.hours}:${endBreakTime.minutes}`,
+    endTime: `${endTime.hours}:${endTime.minutes}`
+  };
 
 
-	return _addTimeEntry(timeEntryInput, addTimeEntry);
+  return _addTimeEntry(timeEntryInput, addTimeEntry);
 };
 
 /**
@@ -145,64 +145,64 @@ export const submitToServer = async (date, stateStoredTimes, phase, activity, ad
  * @return {string} the total duration as HH:mm
  */
 export const calculateLabouredHours = (storedTimes) => {
-	const startTime = storedTimes[storedTimesIndex.startTime];
-	const startBreakTime = storedTimes[storedTimesIndex.startBreakTime];
-	const endBreakTime = storedTimes[storedTimesIndex.endBreakTime];
-	const endTime = storedTimes[storedTimesIndex.endTime];
+  const startTime = storedTimes[storedTimesIndex.startTime];
+  const startBreakTime = storedTimes[storedTimesIndex.startBreakTime];
+  const endBreakTime = storedTimes[storedTimesIndex.endBreakTime];
+  const endTime = storedTimes[storedTimesIndex.endTime];
 
-	const labouredHoursOnDay = new TimeDuration();
-	labouredHoursOnDay.add(endTime);
-	labouredHoursOnDay.subtract(endBreakTime);
-	labouredHoursOnDay.add(startBreakTime);
-	labouredHoursOnDay.subtract(startTime);
+  const labouredHoursOnDay = new TimeDuration();
+  labouredHoursOnDay.add(endTime);
+  labouredHoursOnDay.subtract(endBreakTime);
+  labouredHoursOnDay.add(startBreakTime);
+  labouredHoursOnDay.subtract(startTime);
 
-	return labouredHoursOnDay.toString();
+  return labouredHoursOnDay.toString();
 };
 
 const getContractedHoursUpToDate = (contractedHours, businessDaysUpToDate) =>
-	new TimeDuration(contractedHours).multiplyBy(businessDaysUpToDate);
+  new TimeDuration(contractedHours).multiplyBy(businessDaysUpToDate);
 
 const getLabouredHoursUpToDate = (controlDate, timeEntries, labouredHoursOnDay = false) => {
-	const timeEntriesUpToDate = timeEntries
-		.filter(dayEntry => moment(dayEntry.date).isSameOrBefore(controlDate, 'day'));
-	const minutesUpToDateWithActiveDay = timeEntriesUpToDate
-		.map((dayEntry) => {
-			const hasActiveDay = moment(dayEntry.date).isSame(controlDate, 'day') &&
-				labouredHoursOnDay;
-			return new TimeDuration(hasActiveDay ?
-				labouredHoursOnDay : dayEntry.total).toMinutes();
-		});
+  const timeEntriesUpToDate = timeEntries
+    .filter(dayEntry => moment(dayEntry.date).isSameOrBefore(controlDate, 'day'));
+  const minutesUpToDateWithActiveDay = timeEntriesUpToDate
+    .map((dayEntry) => {
+      const hasActiveDay = moment(dayEntry.date).isSame(controlDate, 'day') &&
+        labouredHoursOnDay;
+      return new TimeDuration(hasActiveDay ?
+        labouredHoursOnDay : dayEntry.total).toMinutes();
+    });
 
-	const minutesLabouredUpToDate = minutesUpToDateWithActiveDay
-		.reduce((totalUpToNow, dayTotal) => totalUpToNow + dayTotal, 0);
+  const minutesLabouredUpToDate = minutesUpToDateWithActiveDay
+    .reduce((totalUpToNow, dayTotal) => totalUpToNow + dayTotal, 0);
 
-	return new TimeDuration(minutesLabouredUpToDate);
+  return new TimeDuration(minutesLabouredUpToDate);
 };
 
 export const calculateHoursBalanceUpToDate = (controlDate, params) => {
-	const {
-		labouredHoursOnDay,
-		contractedHoursForADay,
-		timeEntries
-	} = params;
+  const {
+    labouredHoursOnDay,
+    contractedHoursForADay,
+    timeEntries
+  } = params;
 
-	const businessDaysUpToDate = controlDate.day() > 5 ? 5 : controlDate.day();
+  const businessDaysUpToDate = controlDate.day() > 5 ? 5 : controlDate.day();
 
-	const contractedHoursUpToDate = getContractedHoursUpToDate(
-		contractedHoursForADay,
-		businessDaysUpToDate
-	);
+  const contractedHoursUpToDate = getContractedHoursUpToDate(
+    contractedHoursForADay,
+    businessDaysUpToDate
+  );
 
-	const labouredHoursUpToDate = getLabouredHoursUpToDate(
-		controlDate,
-		timeEntries,
-		labouredHoursOnDay
-	);
+  const labouredHoursUpToDate = getLabouredHoursUpToDate(
+    controlDate,
+    timeEntries,
+    labouredHoursOnDay
+  );
 
-	return {
-		contractedHoursUpToDate,
-		labouredHoursUpToDate
-	};
+  return {
+    contractedHoursUpToDate,
+    labouredHoursUpToDate
+  };
 };
 
 /**
@@ -211,38 +211,38 @@ export const calculateHoursBalanceUpToDate = (controlDate, params) => {
  * @return {bool} if it is a valid array
  */
 export const timesAreValid = (times) => {
-	let comparisonTerm = 0;
-	const isSequentialTime = (time) => {
-		if (time && timeIsValid(time)) {
-			const date = new Date(2017, 0, 1, time.hours, time.minutes, 0, 0);
-			const isLaterThanComparison = date > comparisonTerm;
-			comparisonTerm = Number(date);
-			return isLaterThanComparison;
-		}
-		return false;
-	};
+  let comparisonTerm = 0;
+  const isSequentialTime = (time) => {
+    if (time && timeIsValid(time)) {
+      const date = new Date(2017, 0, 1, time.hours, time.minutes, 0, 0);
+      const isLaterThanComparison = date > comparisonTerm;
+      comparisonTerm = Number(date);
+      return isLaterThanComparison;
+    }
+    return false;
+  };
 
-	return times.every(isSequentialTime);
+  return times.every(isSequentialTime);
 };
 
 export const dismemberTimeString = (timeString) => {
-	const [hours, minutesRaw] = String(timeString).split(':');
-	const numberMinutes = parseInt(minutesRaw, 10);
-	const minutes = (numberMinutes < 10) ? `0${numberMinutes}` : minutesRaw;
-	return { hours, minutes };
+  const [hours, minutesRaw] = String(timeString).split(':');
+  const numberMinutes = parseInt(minutesRaw, 10);
+  const minutes = (numberMinutes < 10) ? `0${numberMinutes}` : minutesRaw;
+  return { hours, minutes };
 };
 
 export const isDayBlockedInPast = (day) => {
-	const today = moment();
-	if (day.isSameOrAfter(today, 'day')) {
-		return false;
-	}
-	const MONDAY = 1;
-	const todayIsMonday = today.day() === MONDAY;
-	// if it is monday then last week is still valid
-	if (todayIsMonday) {
-		const lastFriday = today.subtract(3, 'days');
-		return day.isBefore(lastFriday, 'week');
-	}
-	return day.isBefore(today, 'week');
+  const today = moment();
+  if (day.isSameOrAfter(today, 'day')) {
+    return false;
+  }
+  const MONDAY = 1;
+  const todayIsMonday = today.day() === MONDAY;
+  // if it is monday then last week is still valid
+  if (todayIsMonday) {
+    const lastFriday = today.subtract(3, 'days');
+    return day.isBefore(lastFriday, 'week');
+  }
+  return day.isBefore(today, 'week');
 };

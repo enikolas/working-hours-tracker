@@ -6,10 +6,10 @@ import Header from './Header';
 import './Main.css';
 
 const Main = () => (
-	<div className="root-container">
-		<Header />
-		<AuthRedirect />
-	</div>
+  <div className="root-container">
+    <Header />
+    <AuthRedirect />
+  </div>
 );
 
 export default Main;

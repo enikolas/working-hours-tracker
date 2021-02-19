@@ -11,43 +11,43 @@ import { getAuthToken, removeAuthToken } from './authentication/token';
 const _checkAuth = () => Boolean(getAuthToken());
 
 class AuthRedirect extends React.Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
 
-		this.state = {
-			authenticated: null
-		};
-	}
+    this.state = {
+      authenticated: null
+    };
+  }
 
-	componentWillMount() {
-		this.setState({ authenticated: _checkAuth() });
-	}
+  componentWillMount() {
+    this.setState({ authenticated: _checkAuth() });
+  }
 
-	componentWillReceiveProps(nextProps) {
-		const { userDetails, loading, error } = nextProps.userDetailsQuery;
-		if (error || (!loading && !userDetails)) {
-			removeAuthToken();
-			this.setState({ authenticated: false });
-		} else {
-			this.setState({ authenticated: _checkAuth() });
-		}
-	}
+  componentWillReceiveProps(nextProps) {
+    const { userDetails, loading, error } = nextProps.userDetailsQuery;
+    if (error || (!loading && !userDetails)) {
+      removeAuthToken();
+      this.setState({ authenticated: false });
+    } else {
+      this.setState({ authenticated: _checkAuth() });
+    }
+  }
 
-	render() {
-		if (this.props.userDetailsQuery.loading) {
-			return <FullScreenSpinner active={this.props.userDetailsQuery.loading} />;
-		}
-		const Component = this.state.authenticated ? TimeEntry : Login;
-		return Component ? <Component /> : null;
-	}
+  render() {
+    if (this.props.userDetailsQuery.loading) {
+      return <FullScreenSpinner active={this.props.userDetailsQuery.loading} />;
+    }
+    const Component = this.state.authenticated ? TimeEntry : Login;
+    return Component ? <Component /> : null;
+  }
 }
 
 AuthRedirect.propTypes = {
-	userDetailsQuery: PropTypes.object
+  userDetailsQuery: PropTypes.object
 };
 
 AuthRedirect.defaultProps = {
-	userDetailsQuery: {}
+  userDetailsQuery: {}
 };
 
 export default graphql(queries.userDetails, { name: 'userDetailsQuery' })(AuthRedirect);

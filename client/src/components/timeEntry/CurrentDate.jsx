@@ -4,18 +4,18 @@ import PropTypes from 'prop-types';
 import strings from '../../utils/strings';
 
 const CurrentDate = ({ selectedDate }) => (
-	<h2 className="current-date">
-		{strings.selectedDate}:{' '}
-		<strong>{selectedDate ? selectedDate.format('L') : ''}</strong>
-	</h2>
+  <h2 className="current-date">
+    {strings.selectedDate}:{' '}
+    <strong>{selectedDate ? selectedDate.format('L') : ''}</strong>
+  </h2>
 );
 
 CurrentDate.propTypes = {
-	selectedDate: PropTypes.object
+  selectedDate: PropTypes.object
 };
 
 CurrentDate.defaultProps = {
-	selectedDate: { format: () => '---' }
+  selectedDate: { format: () => '---' }
 };
 
 export default CurrentDate;

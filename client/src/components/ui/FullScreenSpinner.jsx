@@ -6,23 +6,23 @@ import Spinner from '../ui/Spinner';
 import './FullScreenSpinner.css';
 
 const FullScreenSpinner = props => (
-	props.active ?
-		(
-			<div className="full-screen-spinner-layer">
-				<Spinner
-					class="loadingPage"
-				/>
-			</div>
-		)
-		: ''
+  props.active ?
+    (
+      <div className="full-screen-spinner-layer">
+        <Spinner
+          class="loadingPage"
+        />
+      </div>
+    )
+    : ''
 );
 
 FullScreenSpinner.propTypes = {
-	active: PropTypes.bool
+  active: PropTypes.bool
 };
 
 FullScreenSpinner.defaultProps = {
-	active: false
+  active: false
 };
 
 export default FullScreenSpinner;

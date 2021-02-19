@@ -8,22 +8,22 @@ import strings from '../../../utils/strings';
 import '../../ui/FullScreenSpinner.css';
 
 const LoadingModal = props => (
-	<Modal
-		active={props.active}
-		title={props.title ? props.title : strings.pageLoading}
-		content={<Spinner class="loadingModal" />}
-		hasButtons={false}
-	/>
+  <Modal
+    active={props.active}
+    title={props.title ? props.title : strings.pageLoading}
+    content={<Spinner class="loadingModal" />}
+    hasButtons={false}
+  />
 );
 
 LoadingModal.propTypes = {
-	active: PropTypes.bool,
-	title: PropTypes.string
+  active: PropTypes.bool,
+  title: PropTypes.string
 };
 
 LoadingModal.defaultProps = {
-	active: false,
-	title: null
+  active: false,
+  title: null
 };
 
 export default LoadingModal;

@@ -7,32 +7,32 @@ import GaugeDescription from './GaugeDescription';
 import './Gauge.css';
 
 const Gauge = ({
-	value,
-	expected,
-	description
+  value,
+  expected,
+  description
 }) => (
-	<div className="Gauge">
-		<GaugeBar
-			currentValue={value}
-			referenceValue={expected}
-		/>
-		<GaugeDescription
-			description={description}
-			value={value}
-		/>
-	</div>
+  <div className="Gauge">
+    <GaugeBar
+      currentValue={value}
+      referenceValue={expected}
+    />
+    <GaugeDescription
+      description={description}
+      value={value}
+    />
+  </div>
 );
 
 Gauge.propTypes = {
-	value: PropTypes.number,
-	expected: PropTypes.number,
-	description: PropTypes.string
+  value: PropTypes.number,
+  expected: PropTypes.number,
+  description: PropTypes.string
 };
 
 Gauge.defaultProps = {
-	value: 0,
-	expected: 0,
-	description: ''
+  value: 0,
+  expected: 0,
+  description: ''
 };
 
 export default Gauge;

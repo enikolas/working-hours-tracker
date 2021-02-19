@@ -80,13 +80,13 @@ query allEntries {
       startBreakTime
       endBreakTime
       total
-			weekBalance
+      weekBalance
       balance
-			isHoliday
-			holiday
-			isVacation
-			isOtanjoubi
-			isJustifiedAbsence
+      isHoliday
+      holiday
+      isVacation
+      isOtanjoubi
+      isJustifiedAbsence
     }
   }
 }
@@ -96,8 +96,8 @@ export const dayDetailsQuery = gql`
 query dayDetailsQuery($date: String!) {
   dayDetails(date: $date) {
     date
-		phase
-		activity
+    phase
+    activity
   }
 }
 `;

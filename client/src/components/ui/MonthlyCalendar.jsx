@@ -8,14 +8,14 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './MonthlyCalendar.css';
 
 const _getStyleClassForCalendarDays = (timeEntries) => {
-	const checked = [];
-	const unchecked = [];
-	const futureDay = [];
+  const checked = [];
+  const unchecked = [];
+  const futureDay = [];
 
-	const holidays = [];
-	const vacations = [];
-	const otanjoubis = [];
-	const absences = [];
+  const holidays = [];
+  const vacations = [];
+  const otanjoubis = [];
+  const absences = [];
 
   timeEntries.forEach((dayEntry) => {
     const day = moment(dayEntry.date).startOf('day').toDate();
@@ -40,15 +40,15 @@ const _getStyleClassForCalendarDays = (timeEntries) => {
     }
   });
 
-	return [
-		{ 'calendar-checked': checked },
-		{ 'calendar-unchecked': unchecked },
-		{ 'calendar-holiday': holidays },
-		{ 'calendar-vacation': vacations },
-		{ 'calendar-otanjoubi': otanjoubis },
-		{ 'calendar-absence': absences },
-		{ 'calendar-future-day': futureDay }
-	];
+  return [
+    { 'calendar-checked': checked },
+    { 'calendar-unchecked': unchecked },
+    { 'calendar-holiday': holidays },
+    { 'calendar-vacation': vacations },
+    { 'calendar-otanjoubi': otanjoubis },
+    { 'calendar-absence': absences },
+    { 'calendar-future-day': futureDay }
+  ];
 };
 
 const MonthlyCalendar = ({ selectedDate, onDateChange, timeEntries }) => {
@@ -65,15 +65,15 @@ const MonthlyCalendar = ({ selectedDate, onDateChange, timeEntries }) => {
 };
 
 MonthlyCalendar.propTypes = {
-	selectedDate: PropTypes.object,
-	onDateChange: PropTypes.func,
-	timeEntries: PropTypes.array
+  selectedDate: PropTypes.object,
+  onDateChange: PropTypes.func,
+  timeEntries: PropTypes.array
 };
 
 MonthlyCalendar.defaultProps = {
-	selectedDate: {},
-	onDateChange: () => {},
-	timeEntries: []
+  selectedDate: {},
+  onDateChange: () => {},
+  timeEntries: []
 };
 
 export default MonthlyCalendar;

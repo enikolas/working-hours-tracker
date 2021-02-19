@@ -7,14 +7,14 @@ import './BalanceBox.css';
 const formatValue = value => (new TimeDuration(value)).toString();
 
 const BalanceBox = ({ description, value }) => (
-	<div className="balance-box">
-		{description} <strong>{formatValue(value)}</strong>
-	</div>
+  <div className="balance-box">
+    {description} <strong>{formatValue(value)}</strong>
+  </div>
 );
 
 export default BalanceBox;
 
 BalanceBox.propTypes = {
-	description: PropTypes.string.isRequired,
-	value: PropTypes.number.isRequired
+  description: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired
 };

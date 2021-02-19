@@ -8,43 +8,43 @@ import strings from '../../utils/strings';
 import './LabourStatistics.css';
 
 const LabourStatistics = ({
-	dayBalance,
-	weekBalance,
-	contractedTime,
-	weekDay,
-	totalBalance
+  dayBalance,
+  weekBalance,
+  contractedTime,
+  weekDay,
+  totalBalance
 }) => (
-	<div className="LabourStatistics">
-		<Gauge
-			description={strings.hoursLabouredOnThisDay}
-			value={dayBalance}
-			expected={contractedTime}
-		/>
-		<Gauge
-			description={strings.hoursBalanceOnWeekUpToNow}
-			value={weekBalance}
-			expected={contractedTime * weekDay}
-		/>
-		<BalanceBox
-			description={strings.hoursBalanceForToday}
-			value={totalBalance}
-		/>
-	</div>
+  <div className="LabourStatistics">
+    <Gauge
+      description={strings.hoursLabouredOnThisDay}
+      value={dayBalance}
+      expected={contractedTime}
+    />
+    <Gauge
+      description={strings.hoursBalanceOnWeekUpToNow}
+      value={weekBalance}
+      expected={contractedTime * weekDay}
+    />
+    <BalanceBox
+      description={strings.hoursBalanceForToday}
+      value={totalBalance}
+    />
+  </div>
 );
 
 LabourStatistics.propTypes = {
-	totalBalance: PropTypes.number,
-	contractedTime: PropTypes.number,
-	dayBalance: PropTypes.number,
-	weekBalance: PropTypes.number,
-	weekDay: PropTypes.number.isRequired
+  totalBalance: PropTypes.number,
+  contractedTime: PropTypes.number,
+  dayBalance: PropTypes.number,
+  weekBalance: PropTypes.number,
+  weekDay: PropTypes.number.isRequired
 };
 
 LabourStatistics.defaultProps = {
-	totalBalance: 0,
-	contractedTime: 8,
-	dayBalance: 0,
-	weekBalance: 0
+  totalBalance: 0,
+  contractedTime: 8,
+  dayBalance: 0,
+  weekBalance: 0
 };
 
 export default LabourStatistics;
