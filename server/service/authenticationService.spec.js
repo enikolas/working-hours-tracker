@@ -19,7 +19,6 @@ const {
   login,
   logout,
 } = require('./authenticationService');
-const { CookieJar } = require('tough-cookie');
 
 jest.mock('axios');
 jest.mock('../api/utils');
