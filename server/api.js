@@ -1,6 +1,8 @@
 const { ApolloServer } = require('apollo-server-express');
 const { typeDefs, resolvers } = require('./schema');
 
+const BEARER_TOKEN = process.env.BEARER_TOKEN;
+
 module.exports = (port) => new ApolloServer({
   typeDefs,
   resolvers,
@@ -39,27 +41,15 @@ mutation signIn($user: String!, $password: String!) {
         }, null, 2),
       },
       {
-        name: 'query: userDetails',
+        name: 'Queries',
         endpoint: `http://127.0.0.1:${process.env.PORT || 3000}/graphql`,
         query: `
-query userDetails {
+query queries($date: String!) {
   userDetails {
     name
     dailyContractedHours
     lastFridayBalance
   }
-}
-        `,
-        variables: JSON.stringify({}, null, 2),
-        headers: {
-          authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiam9obiIsInBhc3N3b3JkIjoiMTIzNCIsImlhdCI6MTYxNTEyOTk3NDQxOH0.xkYDs2H_wqme0Xp5R4SHPGBCU0K4fJMoUg-7KELnFWY",
-        },
-      },
-      {
-        name: 'query: weekEntries',
-        endpoint: `http://127.0.0.1:${process.env.PORT || 3000}/graphql`,
-        query: `
-query weekEntries($date: String!) {
   weekEntries(date: $date) {
     timeEntries {
       id {
@@ -77,20 +67,6 @@ query weekEntries($date: String!) {
     }
     total
   }
-}
-        `,
-        variables: JSON.stringify({
-          date: '2016-05-01',
-        }, null, 2),
-        headers: {
-          authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiam9obiIsInBhc3N3b3JkIjoiMTIzNCIsImlhdCI6MTYxNTEyOTk3NDQxOH0.xkYDs2H_wqme0Xp5R4SHPGBCU0K4fJMoUg-7KELnFWY",
-        },
-      },
-      {
-        name: 'query: dayEntry',
-        endpoint: `http://127.0.0.1:${process.env.PORT || 3000}/graphql`,
-        query: `
-query dayEntry($date: String!) {
   dayEntry(date: $date) {
     timeEntry {
       id {
@@ -107,39 +83,11 @@ query dayEntry($date: String!) {
       total
     }
   }
-}
-        `,
-        variables: JSON.stringify({
-          date: '2016-05-01',
-        }, null, 2),
-        headers: {
-          authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiam9obiIsInBhc3N3b3JkIjoiMTIzNCIsImlhdCI6MTYxNTEyOTk3NDQxOH0.xkYDs2H_wqme0Xp5R4SHPGBCU0K4fJMoUg-7KELnFWY",
-        },
-      },
-      {
-        name: 'query: dayDetails',
-        endpoint: `http://127.0.0.1:${process.env.PORT || 3000}/graphql`,
-        query: `
-query dayDetails($date: String!) {
   dayDetails(date: $date) {
     date
     phase
     activity
   }
-}
-        `,
-        variables: JSON.stringify({
-          date: '2016-05-01',
-        }, null, 2),
-        headers: {
-          authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiam9obiIsInBhc3N3b3JkIjoiMTIzNCIsImlhdCI6MTYxNTEyOTk3NDQxOH0.xkYDs2H_wqme0Xp5R4SHPGBCU0K4fJMoUg-7KELnFWY",
-        },
-      },
-      {
-        name: 'query: allEntries',
-        endpoint: `http://127.0.0.1:${process.env.PORT || 3000}/graphql`,
-        query: `
-query allEntries {
   allEntries {
     name
     admission
@@ -160,18 +108,6 @@ query allEntries {
       holiday
     }
   }
-}
-        `,
-        variables: JSON.stringify({}, null, 2),
-        headers: {
-          authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiam9obiIsInBhc3N3b3JkIjoiMTIzNCIsImlhdCI6MTYxNTEyOTk3NDQxOH0.xkYDs2H_wqme0Xp5R4SHPGBCU0K4fJMoUg-7KELnFWY",
-        },
-      },
-      {
-        name: 'query: phases',
-        endpoint: `http://127.0.0.1:${process.env.PORT || 3000}/graphql`,
-        query: `
-query phases {
   phases {
     default
     options {
@@ -186,18 +122,6 @@ query phases {
       }
     }
   }
-}
-        `,
-        variables: JSON.stringify({}, null, 2),
-        headers: {
-          authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiam9obiIsInBhc3N3b3JkIjoiMTIzNCIsImlhdCI6MTYxNTEyOTk3NDQxOH0.xkYDs2H_wqme0Xp5R4SHPGBCU0K4fJMoUg-7KELnFWY",
-        },
-      },
-      {
-        name: 'query: changePasswordData',
-        endpoint: `http://127.0.0.1:${process.env.PORT || 3000}/graphql`,
-        query: `
-query changePasswordData {
   changePasswordData {
     id
     atkprevlevel
@@ -213,9 +137,62 @@ query changePasswordData {
   }
 }
         `,
-        variables: JSON.stringify({}, null, 2),
+        variables: JSON.stringify({
+          date: '2016-05-01',
+        }, null, 2),
         headers: {
-          authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiam9obiIsInBhc3N3b3JkIjoiMTIzNCIsImlhdCI6MTYxNTEyOTk3NDQxOH0.xkYDs2H_wqme0Xp5R4SHPGBCU0K4fJMoUg-7KELnFWY",
+          authorization: `Bearer ${BEARER_TOKEN}`,
+        },
+      },
+      {
+        name: 'mutation: delTimeEntry',
+        endpoint: `http://127.0.0.1:${process.env.PORT || 3000}/graphql`,
+        query: `
+mutation delTimeEntry($date: String!) {
+  delTimeEntry(date: $date)
+}
+        `,
+        variables: JSON.stringify({
+          date: '2016-05-01',
+        }, null, 2),
+        headers: {
+          authorization: `Bearer ${BEARER_TOKEN}`,
+        },
+      },
+      {
+        name: 'mutation: addTimeEntry',
+        endpoint: `http://127.0.0.1:${process.env.PORT || 3000}/graphql`,
+        query: `
+mutation addTimeEntry($timeEntry: TimeEntryInput!) {
+  addTimeEntry(timeEntry: $timeEntry) {
+    id {
+      workTimeId
+      breakTimeId
+    }
+    date
+    phase
+    activity
+    startTime
+    endTime
+    startBreakTime
+    endBreakTime
+    total
+  }
+}
+        `,
+        variables: JSON.stringify({
+          timeEntry: {
+            date: '2016-05-01',
+            startTime: "08:00",
+            endTime: "17:00",
+            startBreakTime: "12:00",
+            endBreakTime: "13:00",
+            phaseId: 456,
+            activityId: 7,
+          },
+        }, null, 2),
+        headers: {
+          authorization: `Bearer ${BEARER_TOKEN}`,
         },
       },
     ],
