@@ -195,6 +195,58 @@ mutation addTimeEntry($timeEntry: TimeEntryInput!) {
           authorization: `Bearer ${BEARER_TOKEN}`,
         },
       },
+      {
+        name: 'mutation: updateTimeEntry',
+        endpoint: `http://127.0.0.1:${process.env.PORT || 3000}/graphql`,
+        query: `
+mutation updateTimeEntry($timeEntry: TimeEntryInput!) {
+  updateTimeEntry(timeEntry: $timeEntry) {
+    id {
+      workTimeId
+      breakTimeId
+    }
+    date
+    phase
+    activity
+    startTime
+    endTime
+    startBreakTime
+    endBreakTime
+    total
+  }
+}
+        `,
+        variables: JSON.stringify({
+          timeEntry: {
+            date: '2016-05-01',
+            startTime: "08:00",
+            endTime: "17:00",
+            startBreakTime: "12:00",
+            endBreakTime: "13:00",
+            phaseId: 456,
+            activityId: 7,
+          },
+        }, null, 2),
+        headers: {
+          authorization: `Bearer ${BEARER_TOKEN}`,
+        },
+      },
+      {
+        name: 'mutation: changePassword',
+        endpoint: `http://127.0.0.1:${process.env.PORT || 3000}/graphql`,
+        query: `
+mutation changePassword($currentPassword: String!, $newPassword: String!) {
+  changePassword(currentPassword: $currentPassword, newPassword: $newPassword)
+}
+        `,
+        variables: JSON.stringify({
+          currentPassword: '123456789',
+          newPassword: '987654321',
+        }, null, 2),
+        headers: {
+          authorization: `Bearer ${BEARER_TOKEN}`,
+        },
+      },
     ],
   },
 });
