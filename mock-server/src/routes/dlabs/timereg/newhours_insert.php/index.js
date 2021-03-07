@@ -1,5 +1,8 @@
 const getMock = require('./GET.mock');
-const postMock = require('./POST.mock');
+const postFailureMock = require('./POST_failure.mock');
+const postSuccessMock = require('./POST_success.mock');
+
+const simulateError = Boolean(process.env.SIMULATE_ERROR === 'true');
 
 module.exports = (app) => {
   app.get('/dlabs/timereg/newhours_insert.php', (req, res) => {
@@ -17,6 +20,6 @@ module.exports = (app) => {
     res
       .status(200)
       .set('Content-Type', 'text/html')
-      .send(postMock);
+      .send(simulateError ? postFailureMock : postSuccessMock);
   });
 };
