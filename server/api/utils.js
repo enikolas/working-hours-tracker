@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const cheerio = require('cheerio');
 const jwt = require('jwt-simple');
 const md5 = require('md5');
@@ -136,6 +138,7 @@ const getOptions = (method, uri, cookieJar) => ({
   method,
   url: uri,
   jar: cookieJar,
+  withCredentials: true,
   rejectUnauthorized: false
 });
 

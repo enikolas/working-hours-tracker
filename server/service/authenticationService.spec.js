@@ -1,16 +1,18 @@
-const axios = require('axios');
+const axios = require('axios').default;
 const jwt = require('jwt-simple');
+const FormData = require('form-data');
 
-const logger = require('../logger');
 const {
   ACHIEVO_URL,
-  extractError,
-  getOptions,
   cookieJarFactory,
   thereIsSessionFrom,
   setSession,
   removeSession
 } = require('../api/utils');
+
+const {
+  getOptions,
+} = require('./utils');
 
 const {
   authenticationSucceed,
@@ -21,13 +23,14 @@ const { CookieJar } = require('tough-cookie');
 
 jest.mock('axios');
 jest.mock('../api/utils');
+jest.mock('./utils');
 
 describe('Authentication Service', () => {
   const jwtSecret = 'jwtSecret123';
   const user = 'user';
   const password = 'password';
   const token = jwt.encode({user, password}, jwtSecret);
-  const baseUrl = 'http://localhost:9001';
+  const baseUrl = ACHIEVO_URL;
   const cookieJar = '🍪';
   const options = {
     someOptions: 'someOptions',
@@ -66,12 +69,11 @@ describe('Authentication Service', () => {
       };
 
       thereIsSessionFrom.mockReturnValue(0);
-      axios.mockResolvedValue(response);
+      axios.get.mockResolvedValue(response);
 
       const result = await login(token);
       expect(cookieJarFactory).toHaveBeenCalledWith(token);
-      expect(getOptions).toHaveBeenCalledWith('GET', `${baseUrl}/index.php`, cookieJar);
-      expect(axios).toHaveBeenCalledWith(options);
+      expect(axios.get).toHaveBeenCalledWith(`${baseUrl}/index.php`, options);
       expect(setSession).toHaveBeenCalledWith(token);
       expect(consoleLog).toHaveBeenCalledWith('Authenticated!!!');
       expect(result).toEqual(token);
@@ -86,21 +88,18 @@ describe('Authentication Service', () => {
       };
 
       thereIsSessionFrom.mockReturnValue(0);
-      axios
-        .mockResolvedValueOnce(response1)
-        .mockResolvedValueOnce(response2);
+      axios.get.mockResolvedValue(response1);
+      axios.post.mockResolvedValue(response2);
 
       const result = await login(token);
       expect(cookieJarFactory).toHaveBeenCalledWith(token);
-      expect(getOptions).toHaveBeenLastCalledWith('POST', `${baseUrl}/index.php`, cookieJar);
+      expect(getOptions).toHaveBeenLastCalledWith(cookieJar);
 
-      expect(axios).toHaveBeenLastCalledWith({
-        ...options,
-        formData: {
-          auth_user: user,
-          auth_pw: password,
-        },
-      });
+      expect(axios.post).toHaveBeenCalledWith(
+        `${baseUrl}/index.php`,
+        expect.any(FormData),
+        options,
+      );
       expect(setSession).toHaveBeenCalledWith(token);
       expect(consoleLog).toHaveBeenCalledWith('Authenticated!!!');
       expect(result).toEqual(token);
@@ -112,7 +111,8 @@ describe('Authentication Service', () => {
       };
 
       thereIsSessionFrom.mockReturnValue(0);
-      axios.mockResolvedValue(response);
+      axios.get.mockResolvedValue(response);
+      axios.post.mockResolvedValue(response);
 
       try {
         const result = await login(token);
@@ -139,18 +139,21 @@ describe('Authentication Service', () => {
         data: 'response',
       };
 
-      axios.mockResolvedValue(response);
+      axios.get.mockResolvedValue(response);
 
       await logout(token);
 
       expect(cookieJarFactory).toHaveBeenCalledWith(token);
-      expect(getOptions).toHaveBeenCalledWith('GET', `${baseUrl}/index.php`, cookieJar);
-      expect(axios).toHaveBeenCalledWith({
-        ...options,
-        params: {
-          atklogout: 1
-        }
-      });
+      expect(getOptions).toHaveBeenCalledWith(cookieJar);
+      expect(axios.get).toHaveBeenCalledWith(
+        `${baseUrl}/index.php`,
+        {
+          ...options,
+          params: {
+            atklogout: 1
+          }
+        },
+      );
       expect(consoleLog).toHaveBeenCalledWith('Logged out!!!');
     });
   });
