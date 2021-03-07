@@ -2,9 +2,10 @@ const axios = require('axios').default;
 const axiosCookieJarSupport = require('axios-cookiejar-support').default;
 const cheerio = require('cheerio');
 const logger = require('../logger');
+
 const {
-	getUserDetails
-} = require('./middleware');
+	getUserDetails,
+} = require('../service/userService');
 
 axiosCookieJarSupport(axios);
 

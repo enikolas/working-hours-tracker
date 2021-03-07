@@ -8,7 +8,7 @@ const {
 
 const {
   getUserDetails,
-} = require('../api/middleware');
+} = require('./userService');
 
 const {
   getOptions,
@@ -20,7 +20,7 @@ const {
 
 jest.mock('axios');
 jest.mock('../api/utils');
-jest.mock('../api/middleware');
+jest.mock('./userService');
 jest.mock('./utils');
 
 describe('Activity Service', () => {

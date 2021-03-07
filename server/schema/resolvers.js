@@ -1,7 +1,5 @@
 require('dotenv').config();
 const {
-  allEntries,
-  userDetails,
   dayDetails
 } = require('../api/middleware');
 
@@ -24,6 +22,11 @@ const {
   dailyEntries,
   weekEntriesByDate,
 } = require('../service/timeEntryService');
+
+const {
+  userDetails,
+  allEntries,
+} = require('../service/reportService');
 
 const {
   changePassword

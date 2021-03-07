@@ -10,7 +10,7 @@ const {
 
 const {
   getUserDetails,
-} = require('../api/middleware');
+} = require('./userService');
 
 const activities = phase => async (token) => {
   const cookieJar = cookieJarFactory(token);

@@ -28,7 +28,7 @@ const {
 
 const {
   getUserDetails,
-} = require('../api/middleware');
+} = require('./userService');
 
 const commonPayload = (id, formKey, functionName) => ({
   form_key: formKey,
