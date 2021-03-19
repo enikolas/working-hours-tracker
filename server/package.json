@@ -23,7 +23,6 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "form-data": "^4.0.0",
     "graphql": "^15.5.0",
     "jwt-simple": "^0.5.6",
     "md5": "^2.3.0",
@@ -31,6 +30,7 @@
     "morgan": "^1.10.0",
     "node-persist": "^3.1.0",
     "prompt": "^1.1.0",
+    "querystring": "^0.2.1",
     "time-duration": "^1.1.4",
     "tough-cookie": "^4.0.0"
   },

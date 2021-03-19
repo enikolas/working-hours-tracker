@@ -46,6 +46,10 @@ const login = async (token) => {
       payload,
     );
 
+    if (!loginResponseHtml) {
+      throw authenticationFailedMessage;
+    }
+
     const error = extractError(loginResponseHtml);
     if (error ||
       !loginResponseHtml ||

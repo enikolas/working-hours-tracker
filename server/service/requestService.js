@@ -1,6 +1,6 @@
 const axios = require('axios').default;
 const axiosCookieJarSupport = require('axios-cookiejar-support').default;
-const FormData = require('form-data');
+const querystring = require('querystring');
 
 const {
   getOptions,
@@ -9,37 +9,42 @@ const {
 axiosCookieJarSupport(axios);
 
 const get = async(url, cookieJar, queryParams) => {
-  const options = {
-    ...getOptions(cookieJar),
-    params: queryParams,
-  };
-
-  const { data: response } = await axios.get(
-    url,
-    options,
-  );
-
-  return response;
+  try {
+    const options = {
+      ...getOptions(cookieJar),
+      params: queryParams,
+    };
+  
+    const { data: response } = await axios.get(
+      url,
+      options,
+    );
+  
+    return response;
+  } catch (error) {
+    console.error('Your GET request failed:', error);
+    return false;
+  }
 };
 
 const post = async(url, cookieJar, payload, queryParams) => {
-  const options = {
-    ...getOptions(cookieJar),
-    params: queryParams,
-  };
-    
-  const formData = new FormData();
-  Object.entries(payload).forEach(([key, value]) => {
-    formData.append(key, value);
-  });
-
-  const { data: response } = await axios.post(
-    url,
-    formData,
-    options,
-  );
-
-  return response;
+  try {
+    const options = {
+      ...getOptions(cookieJar),
+      params: queryParams,
+    };
+  
+    const { data: response } = await axios.post(
+      url,
+      querystring.stringify(payload),
+      options,
+    );
+  
+    return response;
+  } catch (error) {
+    console.error('Your POST request failed:', error);
+    return false;
+  }
 }
 
 module.exports = {
